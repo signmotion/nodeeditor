@@ -58,10 +58,11 @@ TEST_CASE("Dragging node changes position", "[gui]")
     CAPTURE(vwDestPos);
     CAPTURE(scExpectedDelta);
 
-    QTest::mouseMove(&view, vwClickPos, 1000);
-    QTest::mousePress(&view, Qt::LeftButton, Qt::NoModifier, vwClickPos, 1000);
-    QTest::mouseMove(&view, vwDestPos, 1000);
-    QTest::mouseRelease(&view, Qt::LeftButton, Qt::NoModifier, vwDestPos, 1000);
+    QTest::mouseMove(view.windowHandle(), vwClickPos, 1000);
+    QTest::mouseClick(view.windowHandle(), Qt::LeftButton, Qt::NoModifier, vwClickPos, 1000);
+    QTest::mousePress(view.windowHandle(), Qt::LeftButton, Qt::NoModifier, vwClickPos, 1000);
+    QTest::mouseMove(view.windowHandle(), vwDestPos, 1000);
+    QTest::mouseRelease(view.windowHandle(), Qt::LeftButton, Qt::NoModifier, vwDestPos, 1000);
     QTest::qSleep(1000);
 
 
