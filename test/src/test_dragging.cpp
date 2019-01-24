@@ -58,11 +58,16 @@ TEST_CASE("Dragging node changes position", "[gui]")
     CAPTURE(vwDestPos);
     CAPTURE(scExpectedDelta);
 
-    QTest::mouseMove(view.windowHandle(), vwClickPos);
-    QTest::mousePress(view.windowHandle(), Qt::LeftButton, Qt::NoModifier, vwClickPos);
-    QTest::mouseMove(view.windowHandle(), vwDestPos);
+    QTest::mouseMove(&view, vwClickPos, 1000);
+    QTest::mousePress(&view, Qt::LeftButton, Qt::NoModifier, vwClickPos, 1000);
+    QTest::mouseMove(&view, vwDestPos, 1000);
+    QTest::mouseRelease(&view, Qt::LeftButton, Qt::NoModifier, vwDestPos, 1000);
+    QTest::qSleep(1000);
+
+
 
     QPointF scDelta            = ngo.pos() - scPosBefore;
+    CAPTURE(ngo.pos());
     CAPTURE(scDelta);
 
     QPoint  roundDelta         = scDelta.toPoint();
@@ -70,6 +75,8 @@ TEST_CASE("Dragging node changes position", "[gui]")
 
     QPoint  roundExpectedDelta = scExpectedDelta.toPoint();
 
+
+    //CHECK(false);
     CHECK(roundDelta == roundExpectedDelta);
   }
 }
