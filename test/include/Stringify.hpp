@@ -2,6 +2,7 @@
 
 #include <QtCore/QPoint>
 #include <QtCore/QPointF>
+#include <QtCore/QRectF>
 
 #include <catch2/catch.hpp>
 
@@ -26,6 +27,16 @@ struct StringMaker<QPoint>
   convert(QPoint const& p)
   {
     return std::string(QTest::toString(p));
+  }
+};
+
+template <>
+struct StringMaker<QRectF>
+{
+  static std::string
+  convert(QRectF const& r)
+  {
+    return std::string(QTest::toString(r));
   }
 };
 }

@@ -44,6 +44,8 @@ TEST_CASE("Dragging node changes position", "[gui]")
     QPointF scPosBefore = ngo.pos();
 
     QPointF scClickPos = ngo.boundingRect().center();
+    CAPTURE(ngo.boundingRect());
+
     scClickPos         = QPointF(ngo.sceneTransform().map(scClickPos).toPoint());
 
     QPoint vwClickPos = view.mapFromScene(scClickPos);
@@ -61,7 +63,11 @@ TEST_CASE("Dragging node changes position", "[gui]")
     QTest::mouseMove(view.windowHandle(), vwDestPos);
 
     QPointF scDelta            = ngo.pos() - scPosBefore;
+    CAPTURE(scDelta);
+
     QPoint  roundDelta         = scDelta.toPoint();
+    CAPTURE(roundDelta);
+
     QPoint  roundExpectedDelta = scExpectedDelta.toPoint();
 
     CHECK(roundDelta == roundExpectedDelta);
